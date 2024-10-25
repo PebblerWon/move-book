@@ -105,7 +105,7 @@
   - [设计模式: 见证者](./programmability/witness-pattern.md)
   - [一次性见证者](./programmability/one-time-witness.md)
   - [发布者权限](./programmability/publisher.md)
-  - [展示](./programmability/display.md) <!-- End Block: from Witness to Display -->
+  - [Display 对象](./programmability/display.md) <!-- End Block: from Witness to Display -->
   - [时间](./programmability/events.md)
   - [Balance & Coin]() <!-- ./programmability/balance-and-coin.md) -->
   - [Sui Framework](./programmability/sui-framework.md)
