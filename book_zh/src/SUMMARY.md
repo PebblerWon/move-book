@@ -106,7 +106,7 @@
   - [一次性见证者](./programmability/one-time-witness.md)
   - [发布者权限](./programmability/publisher.md)
   - [Display 对象](./programmability/display.md) <!-- End Block: from Witness to Display -->
-  - [时间](./programmability/events.md)
+  - [事件](./programmability/events.md)
   - [Balance & Coin]() <!-- ./programmability/balance-and-coin.md) -->
   - [Sui Framework](./programmability/sui-framework.md)
   - [设计模式: 烫手山芋](./programmability/hot-potato-pattern.md) <!-- ./programmability/hot-potato.md) -->
