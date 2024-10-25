@@ -104,7 +104,7 @@
   - [动态集合](./programmability/dynamic-collections.md)
   - [设计模式: 见证者](./programmability/witness-pattern.md)
   - [一次性见证者](./programmability/one-time-witness.md)
-  - [Publisher Authority](./programmability/publisher.md)
+  - [发布者权限](./programmability/publisher.md)
   - [展示](./programmability/display.md) <!-- End Block: from Witness to Display -->
   - [时间](./programmability/events.md)
   - [Balance & Coin]() <!-- ./programmability/balance-and-coin.md) -->
