@@ -1,6 +1,6 @@
 # 动态字段
 
-Sui对象模型允许对象作为_动态字段_附加到其他对象上。这种行为类似于其他编程语言中的`Map`。然而，与Move中的严格类型化`Map`不同（我们在[集合](./collections.md)部分中已介绍），动态字段允许附加任意类型的对象。在前端开发中，类似的方法是JavaScript对象类型，它允许动态存储任何类型的数据。
+Sui 对象模型允许对象作为 _动态字段_ 附加到其他对象上。这种行为类似于其他编程语言中的`Map`。然而，与 Move 中的严格类型化`Map`不同（我们在[集合](./collections.md)部分中已介绍），动态字段允许附加任意类型的对象。在前端开发中，类似的方法是 JavaScript 对象类型，它允许动态存储任何类型的数据。
 
 > 动态字段可以附加到一个对象上的数量没有限制。因此，动态字段可以用于存储大量数据，这些数据不适合对象大小限制。
 
@@ -8,7 +8,7 @@ Sui对象模型允许对象作为_动态字段_附加到其他对象上。这种
 
 ## 定义
 
-动态字段在[Sui框架](./sui-framework.md)的`sui::dynamic_field`模块中定义。它们通过一个_名称_附加到对象的`UID`上，可以使用该名称进行访问。每个对象只能附加一个给定名称的字段。
+动态字段在 [Sui Framework](./sui-framework.md)的`sui::dynamic_field`模块中定义。它们通过一个 _名称_ 附加到对象的`UID`上，可以使用该名称进行访问。每个对象只能附加一个给定名称的字段。
 
 文件：sui-framework/sources/dynamic_field.move
 
@@ -37,9 +37,9 @@ public struct Field<Name: copy + drop + store, Value: store> has key {
 
 在上面的例子中，我们定义了一个`Character`对象和两种不同类型的配件，这些配件无法一起放入一个向量中。然而，动态字段允许我们在单个对象中存储它们。两个对象通过`vector<u8>`（字节字符串字面量）附加到`Character`，并可以使用各自的键进行访问。
 
-如你所见，当我们将配件附加到`Character`时，是通过_值_传递的。换句话说，两个值都被移动到一个新的作用域，它们的所有权被转移到`Character`对象。如果我们改变`Character`对象的所有权，配件也会随之移动。
+如你所见，当我们将配件附加到`Character`时，是通过 _值_ 传递的。换句话说，两个值都被移动到一个新的作用域，它们的所有权被转移到`Character`对象。如果我们改变`Character`对象的所有权，配件也会随之移动。
 
-我们应该强调的动态字段的最后一个重要属性是它们_通过其父对象进行访问_。这意味着`Hat`和`Mustache`对象不能直接访问，并遵循与父对象相同的规则。
+我们应该强调的动态字段的最后一个重要属性是它们 _通过其父对象进行访问_。这意味着`Hat`和`Mustache`对象不能直接访问，并遵循与父对象相同的规则。
 
 ## 外部类型作为动态字段
 
@@ -49,7 +49,7 @@ public struct Field<Name: copy + drop + store, Value: store> has key {
 {{#include ../../../packages/samples/sources/programmability/dynamic-fields.move:foreign_types}}
 ```
 
-在这个例子中，我们展示了如何为动态字段的_名称_和_值_使用不同的类型。`String`通过`vector<u8>`名称附加，`u64`通过`u32`名称附加，`bool`通过`bool`名称附加。使用动态字段可以实现任何可能性！
+在这个例子中，我们展示了如何为动态字段的 _名称_ 和 _值_ 使用不同的类型。`String`通过`vector<u8>`名称附加，`u64`通过`u32`名称附加，`bool`通过`bool`名称附加。使用动态字段可以实现任何可能性！
 
 ## 孤立的动态字段
 
@@ -77,7 +77,7 @@ public struct Field<Name: copy + drop + store, Value: store> has key {
 {{#include ../../../packages/samples/sources/programmability/dynamic-fields.move:custom_type_usage}}
 ```
 
-如你所见，自定义类型确实可以作为字段名称，但只要它们可以由模块构造，换句话说 - 如果它们是模块的_内部_并在其中定义。这种对结构打包的限制可以在应用程序设计中开辟新的途径。
+如你所见，自定义类型确实可以作为字段名称，但只要它们可以由模块构造，换句话说 - 如果它们是模块的 _内部_ 并在其中定义。这种对结构打包的限制可以在应用程序设计中开辟新的途径。
 
 这种方法在[对象能力](./object-capability.md)模式中使用，其中应用程序可以授权外部对象在其中执行操作，同时不向其他模块公开能力。
 
@@ -109,11 +109,11 @@ public struct Field<Name: copy + drop + store, Value: store> has key {
 
 ## 限制
 
-动态字段不受[对象大小限制](./../guides/building-against-limits.md)的约束，可以用于存储大量数据。然而，它们仍然受[动态字段创建限制](./../guides/building-against-limits.md)的约束，每个事务的字段数量限制为1000个。
+动态字段不受[对象大小限制](./../guides/building-against-limits.md)的约束，可以用于存储大量数据。然而，它们仍然受[动态字段创建限制](./../guides/building-against-limits.md)的约束，每个事务的字段数量限制为 1000 个。
 
 ## 应用
 
-动态字段在任何复杂度的应用程序中都可以发挥关键作用。它们打开了各种不同的用例，从存储异构数据到将对象作为应用程序逻辑的一部分附加。基于定义它们_稍后_并更改字段类型的能力，它们允许某些[可升级性实践](./../guides/upgradeability-practices.md)。
+动态字段在任何复杂度的应用程序中都可以发挥关键作用。它们打开了各种不同的用例，从存储异构数据到将对象作为应用程序逻辑的一部分附加。基于定义它们 _稍后_ 并更改字段类型的能力，它们允许某些[可升级性实践](./../guides/upgradeability-practices.md)。
 
 ## 下一步
 

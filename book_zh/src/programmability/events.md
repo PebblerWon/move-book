@@ -1,6 +1,6 @@
 # 事件
 
-事件是一种通知链下监听器关于链上事件的方式。它们用于发出关于交易的额外信息，这些信息不会存储在链上，因此无法在链上访问。事件由[Sui框架](./sui-framework.md)中的`sui::event`模块发出。
+事件是一种通知链下监听器关于链上事件的方式。它们用于发出关于交易的额外信息，这些信息不会存储在链上，因此无法在链上访问。事件由[Sui Framework](./sui-framework.md)中的`sui::event`模块发出。
 
 > 任何具有[copy](./../move-basics/copy-ability.md)和[drop](./../move-basics/drop-ability.md)能力的自定义类型都可以作为事件发出。Sui Verifier要求类型是模块的内部类型。
 

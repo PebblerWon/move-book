@@ -119,7 +119,7 @@ fun aliases() {
 }
 ```
 
-有关内置别名的完整列表，请参阅[标准库](../move-basics/standard-library.md#source-code)和[Sui 框架](../programmability/sui-framework.md#source-code)的源代码。
+有关内置别名的完整列表，请参阅[标准库](../move-basics/standard-library.md#source-code)和[Sui Framework](../programmability/sui-framework.md#source-code)的源代码。
 
 ## 借用操作符
 

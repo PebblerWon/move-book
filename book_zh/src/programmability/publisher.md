@@ -4,7 +4,7 @@
 
 ## 定义
 
-发布者对象在Sui框架的`sui::package`模块中定义。它是一个非常简单的、非泛型对象，可以每个模块初始化一次（每个包多次），用于证明发布者对类型的权威。为了声明一个发布者对象，发布者必须向`package::claim`函数提供一个[一次性见证](./one-time-witness.md)。
+发布者对象在Sui Framework的`sui::package`模块中定义。它是一个非常简单的、非泛型对象，可以每个模块初始化一次（每个包多次），用于证明发布者对类型的权威。为了声明一个发布者对象，发布者必须向`package::claim`函数提供一个[一次性见证](./one-time-witness.md)。
 
 ```move
 // File: sui-framework/sources/package.move
