@@ -1,29 +1,20 @@
 # 宏函数
 
-宏函数是一种在每次调用时在编译期间展开的函数定义方式。宏的参数不像普通函数那样被急切求值，而是通过表
-达式进行替换。此外，调用者可以通过 [lambda](#lambdas) 向宏提供代码。
+宏函数是一种在每次调用时在编译期间展开的函数定义方式。宏的参数不像普通函数那样被急切求值，而是通过表达式进行替换。此外，调用者可以通过 [lambda](#lambdas) 向宏提供代码。
 
-这种表达式替换机制使得 `macro` 函数类似于
-[其他编程语言中的宏](<https://en.wikipedia.org/wiki/Macro_(computer_science)>); 然而，它们在 Move 中
-比你从其他语言中预期的要更受限制。`macro` 函数的参数和返回值仍然是有类型的——尽管这可以部分放宽，通过
-[`_` 类型](../generics.md#_-type)。然而，这一限制的好处在于，`macro` 函数可以在任何正常函数可以使用
-的地方使用，这对于 [方法语法](../method-syntax.md) 特别有帮助。
+这种表达式替换机制使得 `macro` 函数类似于[其他编程语言中的宏](<https://en.wikipedia.org/wiki/Macro_(computer_science)>); 然而，它们在 Move 中比你从其他语言中预期的要更受限制。`macro` 函数的参数和返回值仍然是有类型的——尽管这可以部分放宽，通过 [`_` 类型](../generics.md#_-type)。然而，这一限制的好处在于，`macro` 函数可以在任何正常函数可以使用的地方使用，这对于 [方法语法](../method-syntax.md) 特别有帮助。
 
-未来可能会出现一个更广泛的
-[语法宏](<https://en.wikipedia.org/wiki/Macro_(computer_science)#Syntactic_macros>) 系统。
+未来可能会出现一个更广泛的[语法宏](<https://en.wikipedia.org/wiki/Macro_(computer_science)#Syntactic_macros>) 系统。
 
 ## 语法
 
-`macro` 函数的语法与普通函数类似。然而，所有类型参数名称和所有参数名称必须以
-`translate from $sourceLang to $targetLang:` 开头。请注意，`_` 仍然可以单独使用，但不能作为前缀，而
-必须使用 `$_`。
+`macro` 函数的语法与普通函数类似。然而，所有类型参数名称和所有参数名称必须以 `translate from $sourceLang to $targetLang:` 开头。请注意，`_` 仍然可以单独使用，但不能作为前缀，而必须使用 `$_`。
 
 ```text
 <visibility>? macro fun <identifier><[$type_parameters: constraint],*>([$identifier: type],*): <return_type> <function_body>
 ```
 
-例如，以下 `macro` 函数接受一个向量和一个 lambda，并将该 lambda 应用到向量的每个元素上，以构造一个新
-的向量。
+例如，以下 `macro` 函数接受一个向量和一个 lambda，并将该 lambda 应用到向量的每个元素上，以构造一个新的向量。
 
 ```move
 macro fun map<$T, $U>($v: vector<$T>, $f: |$T| -> $U): vector<$U> {
@@ -39,16 +30,11 @@ macro fun map<$T, $U>($v: vector<$T>, $f: |$T| -> $U): vector<$U> {
 }
 ```
 
-`$` 是用来指示参数（类型参数和数值参数）与它们正常的非宏对应物行为不同。对于类型参数，它们可以用任何
-类型实例化（甚至是引用类型 `&` 或 `&mut`），并且会满足任何约束。同样，对于参数，它们不会被急切求值，
-而是在每次使用时替换为参数表达式。
+`$` 是用来指示参数（类型参数和数值参数）与它们正常的非宏对应物行为不同。对于类型参数，它们可以用任何类型实例化（甚至是引用类型 `&` 或 `&mut`），并且会满足任何约束。同样，对于参数，它们不会被急切求值，而是在每次使用时替换为参数表达式。
 
 ## Lambda
 
-Lambda 是一种新类型的表达式，仅可与 `macro` 一起使用。这些用于将代码从调用者传递到 `macro` 的主体中
-。虽然替换是在编译时完成的，但它们的用法类似于其他语言中的
-[匿名函数](https://en.wikipedia.org/wiki/Anonymous_function)、[lambda](https://en.wikipedia.org/wiki/Lambda_calculus)
-或 [闭包](<https://en.wikipedia.org/wiki/Closure_(computer_programming)>).
+Lambda 是一种新类型的表达式，仅可与 `macro` 一起使用。这些用于将代码从调用者传递到 `macro` 的主体中。虽然替换是在编译时完成的，但它们的用法类似于其他语言中的[匿名函数](https://en.wikipedia.org/wiki/Anonymous_function)、[lambda](https://en.wikipedia.org/wiki/Lambda_calculus) 或 [闭包](<https://en.wikipedia.org/wiki/Closure_(computer_programming)>).
 
 如上例所示（`$f: |$T| -> $U`），lambda 类型的定义语法为
 
@@ -112,12 +98,13 @@ let incremented = map!(vector[1, 2, 3], |x| x + res);
 
 目前，lambda 只能直接在 `macro` 调用中使用。它们不能绑定到变量。例如，以下代码将产生错误：
 
-````move
+```move
 let f = |x| 2 * x;
 //      ^^^^^^^^^ Error! Lambdas must be used directly in 'macro' calls
 let doubled: vector<u64> = map!(vector[1, 2, 3], f);
+```
 
-## 输入
+### 输入
 
 与普通函数一样，`macro` 函数是有类型的——参数和返回值的类型必须被注解。然而，函数的主体在宏展开之前不会进行类型检查。这意味着给定宏的并非所有用法都是有效的。例如
 
@@ -145,11 +132,9 @@ macro fun call_foo<$T, $U>($x: $T): &$U {
 
 类型参数可以用任何类型实例化，包括引用类型 `&` 和 `&mut`。它们
 
-也可以用 [元组类型](../primitive-types/tuple.md) 实例化，尽管目前这的实用性有限，因为元组不能绑定到
-变量上。
+也可以用 [元组类型](../primitive-types/tuple.md) 实例化，尽管目前这的实用性有限，因为元组不能绑定到变量上。
 
-这种放宽要求迫使在调用点满足类型参数的约束，这种情况通常不会发生。然而，通常建议将所有必要的约束添加
-到类型参数中。例如
+这种放宽要求迫使在调用点满足类型参数的约束，这种情况通常不会发生。然而，通常建议将所有必要的约束添加到类型参数中。例如
 
 ```move
 public struct NoAbilities()
@@ -176,9 +161,7 @@ macro fun make_box<$T: copy>($x: $T): CopyBox<$T> {
 }
 ```
 
-那么，人们可能会合理地问，既然建议不使用它，为什么还要放宽这个限制？类型参数的约束在所有情况下都无法
-强制执行，因为函数体在展开之前不会被检查。在下面的示例中，`$T`上的`copy`约束在签名中不是必需的，但在
-函数体中是必要的。
+那么，人们可能会合理地问，既然建议不使用它，为什么还要放宽这个限制？类型参数的约束在所有情况下都无法强制执行，因为函数体在展开之前不会被检查。在下面的示例中，`$T`上的`copy`约束在签名中不是必需的，但在函数体中是必要的。
 
 ```move
 macro fun read_ref<$T>($r: &$T): $T {
@@ -190,9 +173,7 @@ macro fun read_ref<$T>($r: &$T): $T {
 
 ### `_` 类型
 
-通常，[`_` 占位符类型](../generics.md#_-type) 在表达式中用于允许部分注解类型参数。然而，在 `macro`
-函数中，可以使用 `_` 类型代替类型参数，以放宽任何类型的签名。这应该会提高声明“泛型” `macro` 函数的便
-利性。
+通常，[`_` 占位符类型](../generics.md#_-type) 在表达式中用于允许部分注解类型参数。然而，在 `macro`函数中，可以使用 `_` 类型代替类型参数，以放宽任何类型的签名。这应该会提高声明“泛型” `macro` 函数的便利性。
 
 例如，我们可以
 
@@ -236,8 +217,7 @@ macro fun map($v: vector<_>, $f: |_| -> _): vector<_> {
 
 ## 扩展和替换
 
-`macro` 的主体在编译时被替换到调用位置。每个参数都由其实参的 _表达式_ 替代，而不是值。对于 lambda，
-额外的局部变量可以在 `macro` 主体的上下文中绑定值。
+`macro` 的主体在编译时被替换到调用位置。每个参数都由其实参的 _表达式_ 替代，而不是值。对于 lambda，额外的局部变量可以在 `macro` 主体的上下文中绑定值。
 
 举一个非常简单的例子
 
@@ -262,8 +242,7 @@ let incremented = {
 };
 ```
 
-再次，`x` 的值不会被替换，而是表达式 `5` 被替换。这可能意味着根据 `macro` 的主体，参数可能被多次评估
-，
+再次，`x` 的值不会被替换，而是表达式 `5` 被替换。这可能意味着根据 `macro` 的主体，参数可能被多次评估，
 
 ```move
 macro fun dup($f: |u64, u64| -> u64, $x: u64): u64 {
@@ -311,14 +290,11 @@ let sum = {
 
 ### 卫生
 
-在上面的例子中，`dup` 宏有一个局部变量 `a`，用于绑定参数 `$x`。你可能会问，如果这个变量被命名为 `x`
-会发生什么？这会与 lambda 中的 `x` 冲突吗？
+在上面的例子中，`dup` 宏有一个局部变量 `a`，用于绑定参数 `$x`。你可能会问，如果这个变量被命名为 `x` 会发生什么？这会与 lambda 中的 `x` 冲突吗？
 
-简短的回答是，不会。`macro` 函数是 [卫生的](https://en.wikipedia.org/wiki/Hygienic_macro)，这意味着
-宏和 lambda 的展开不会意外捕获来自其他作用域的变量。
+简短的回答是，不会。`macro` 函数是 [卫生的](https://en.wikipedia.org/wiki/Hygienic_macro)，这意味着宏和 lambda 的展开不会意外捕获来自其他作用域的变量。
 
-编译器通过将每个作用域关联一个唯一编号来实现这一点。当 `macro` 被展开时，宏体获得自己的作用域。此外
-，每次使用时参数都会重新定义作用域。
+编译器通过将每个作用域关联一个唯一编号来实现这一点。当 `macro` 被展开时，宏体获得自己的作用域。此外，每次使用时参数都会重新定义作用域。
 
 修改 `dup` 宏以使用 `x` 而不是 `a`.
 
@@ -392,8 +368,7 @@ macro fun call_foo($s: &S): u64 {
 }
 ```
 
-在这种情况下，方法调用 `foo` 始终会解析为函数 `f`，即使 `call_foo` 在一个 `foo` 绑定到不同函数（例如
-`g`）的作用域中使用。
+在这种情况下，方法调用 `foo` 始终会解析为函数 `f`，即使 `call_foo` 在一个 `foo` 绑定到不同函数（例如`g`）的作用域中使用。
 
 ```move
 fun example(s: &S): u64 {
@@ -434,8 +409,7 @@ let result: vector<u64> = vector['a: {
 }];
 ```
 
-其中 `return 'a 0` 将返回到块 `'a: { ... }` 而不是调用者的主体。有关更多详细信息，请参见
-[带标签的控制流](../control-flow/labeled-control-flow.md) 部分。
+其中 `return 'a 0` 将返回到块 `'a: { ... }` 而不是调用者的主体。有关更多详细信息，请参见[带标签的控制流](../control-flow/labeled-control-flow.md) 部分。
 
 同样，lambda 中的 `return` 将从 lambda 返回，而不是从 `macro` 主体或外部函数返回。
 
@@ -463,8 +437,7 @@ let result = {
 };
 ```
 
-除了从 lambda 返回外，标签还可以用于返回到外部函数。在 `vector::any` 宏中，使用带标签的 `return` 可
-以提前从整个 `macro` 返回。
+除了从 lambda 返回外，标签还可以用于返回到外部函数。在 `vector::any` 宏中，使用带标签的 `return` 可以提前从整个 `macro` 返回。
 
 ```move
 public macro fun any<$T>($v: &vector<$T>, $f: |&$T| -> bool): bool {
@@ -480,9 +453,7 @@ public macro fun any<$T>($v: &vector<$T>, $f: |&$T| -> bool): bool {
 
 ### 方法语法
 
-在适用的情况下，可以使用[方法语法](../method-syntax.md)调用`宏`函数。当使用方法语法时，参数的求值方
-式将发生变化，第一个参数（方法的“接收者”）将在宏扩展之外进行求值。这个例子虽然有些牵强，但可以简明地
-展示这种行为:
+在适用的情况下，可以使用[方法语法](../method-syntax.md)调用`宏`函数。当使用方法语法时，参数的求值方式将发生变化，第一个参数（方法的“接收者”）将在宏扩展之外进行求值。这个例子虽然有些牵强，但可以简明地展示这种行为:
 
 ```move
 public struct S() has copy, drop;
@@ -510,8 +481,7 @@ if (false) foo()
 else S()
 ```
 
-然而，当使用方法语法时，第一个参数在宏展开之前被评估。因此，`foo()` 的相同参数 `$s` 现在将被评估并会
-中止。
+然而，当使用方法语法时，第一个参数在宏展开之前被评估。因此，`foo()` 的相同参数 `$s` 现在将被评估并会中止。
 
 ```move
 foo().maybe_s!(false) // aborts
@@ -529,8 +499,7 @@ else S()
 
 ### 参数限制
 
-`macro` 函数的参数必须始终作为表达式使用。它们不能在可能被重新解释的情况下使用。例如，以下情况是不允
-许的
+`macro` 函数的参数必须始终作为表达式使用。它们不能在可能被重新解释的情况下使用。例如，以下情况是不允许的
 
 ```move
 macro fun no($x: _): _ {
@@ -538,8 +507,7 @@ macro fun no($x: _): _ {
 }
 ```
 
-原因是，如果参数 `$x` 不是引用，它将首先被借用，这可能会重新解释该参数。为了绕过这个限制，您应该将参
-数绑定到一个局部变量。
+原因是，如果参数 `$x` 不是引用，它将首先被借用，这可能会重新解释该参数。为了绕过这个限制，您应该将参数绑定到一个局部变量。
 
 ```move
 macro fun yes($x: _): _ {
@@ -576,12 +544,9 @@ assert_eq!(vector[true, false], vector[true, false], 1 / 0); // division by zero
 
 此宏计算任何整数类型的整数平方根，除了 `u256`。
 
-`$T` 是输入的类型，`$bitsize` 是该类型中的位数，例如 `u8` 有 8 位。 `$U` 应设置为下一个更大的整数类
-型，例如对于 `u8` 使用 `u16`。
+`$T` 是输入的类型，`$bitsize` 是该类型中的位数，例如 `u8` 有 8 位。 `$U` 应设置为下一个更大的整数类型，例如对于 `u8` 使用 `u16`。
 
-在这个 `macro` 中，整数字面量的类型是被注释的，比如 `(1: $U)`，允许每次调用时字面量的类型不同。同样
-，可以使用关键字 `as` 与类型参数 `$T` 和 `$U`. 只有当 `$T` 和 `$U$ 被实例化为整数类型时，此宏才会成
-功扩展。
+在这个 `macro` 中，整数字面量的类型是被注释的，比如 `(1: $U)`，允许每次调用时字面量的类型不同。同样，可以使用关键字 `as` 与类型参数 `$T` 和 `$U`. 只有当 `$T` 和 `$U$ 被实例化为整数类型时，此宏才会成功扩展。
 
 ```move
 macro fun num_sqrt<$T, $U>($x: $T, $bitsize: u8): $T {
