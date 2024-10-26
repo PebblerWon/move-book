@@ -23,7 +23,7 @@
   - [循环](control-flow/loops.md)
   - [带标签的控制流](control-flow/labeled-control-flow.md)
   - [模式匹配](control-flow/pattern-matching.md)
-- [方法](functions.md)
+- [函数](functions.md)
   - [宏函数](functions/macros.md)
 - [结构体](structs.md)
 - [枚举](enums.md)
