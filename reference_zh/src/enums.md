@@ -13,7 +13,7 @@ public enum Action {
 }
 ```
 
-这定义了一个名为`Action`的枚举，表示游戏中可以采取的不同动作 —— 你可以`Stop`(停止)、`Pause`(暂停)一段时间、`MoveTo`(移动到)特定位置、或者`Jump`(跳跃)到特定高度。
+这定义了一个名为`Action`的枚举，表示游戏中可以采取的不同动作 —— 你可以`Stop`(停止)、`Pause`(暂停)一段时间、`MoveTo`(移动到)特定位置或者`Jump`(跳跃)到特定高度。
 
 与结构体类似，枚举也可以拥有[能力](./abilities.md)，这些能力控制可以对枚举执行哪些操作。需要注意的是，枚举不能拥有`key`能力，因为它们不能作为顶级对象。
 
@@ -102,7 +102,7 @@ module a::m {
 }
 ```
 
-更多详情,请参阅[注释能力](./abilities.md#annotating-structs-and-enums)部分。
+更多详情，请参阅[注释能力](./abilities.md#annotating-structs-and-enums)部分。
 
 ## 命名
 
