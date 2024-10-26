@@ -51,7 +51,7 @@ Move中向量的一个常见用例是表示"字节数组"，用`vector<u8>`表�
 | `\\`     | 反斜杠                         |
 | `\0`     | 空字符                         |
 | `\"`     | 引号                           |
-| `\xHH`   | 十六进制转义,插入十六进制字节序列`HH` |
+| `\xHH`   | 十六进制转义，插入十六进制字节序列`HH` |
 
 #### 十六进制字符串
 
@@ -76,12 +76,12 @@ fun byte_and_hex_strings() {
 
 ## 操作
 
-`vector`通过Move标准库中的`std::vector`模块支持以下操作:
+`vector`通过 Move 标准库中的`std::vector`模块支持以下操作:
 
 | 函数                                                       | 描述                                                         | 是否中止?                |
 | ---------------------------------------------------------- | ------------------------------------------------------------ | ------------------------ |
 | `vector::empty<T>(): vector<T>`                            | 创建一个可以存储`T`类型值的空向量                            | 从不                     |
-| `vector::singleton<T>(t: T): vector<T>`                    | 创建一个包含`t`的大小为1的向量                               | 从不                     |
+| `vector::singleton<T>(t: T): vector<T>`                    | 创建一个包含`t`大小为 1 的向量                               | 从不                     |
 | `vector::push_back<T>(v: &mut vector<T>, t: T)`            | 将`t`添加到`v`的末尾                                         | 从不                     |
 | `vector::pop_back<T>(v: &mut vector<T>): T`                | 移除并返回`v`中的最后一个元素                                | 如果`v`为空              |
 | `vector::borrow<T>(v: &vector<T>, i: u64): &T`             | 返回索引`i`处的`T`的不可变引用                               | 如果`i`不在范围内        |
@@ -91,7 +91,7 @@ fun byte_and_hex_strings() {
 | `vector::contains<T>(v: &vector<T>, e: &T): bool`          | 如果`e`在向量`v`中返回true。否则,返回false                   | 从不                     |
 | `vector::swap<T>(v: &mut vector<T>, i: u64, j: u64)`       | 交换向量`v`中第`i`和第`j`个索引处的元素                      | 如果`i`或`j`超出范围     |
 | `vector::reverse<T>(v: &mut vector<T>)`                    | 原地反转向量`v`中元素的顺序                                  | 从不                     |
-| `vector::index_of<T>(v: &vector<T>, e: &T): (bool, u64)`   | 如果`e`在索引`i`处的向量`v`中,返回`(true, i)`。否则,返回`(false, 0)` | 从不                     |
+| `vector::index_of<T>(v: &vector<T>, e: &T): (bool, u64)`   | 如果`e`在索引`i`处的向量`v`中，返回`(true, i)`。否则,返回`(false, 0)` | 从不                     |
 | `vector::remove<T>(v: &mut vector<T>, i: u64): T`          | 移除向量`v`的第`i`个元素，移动所有后续元素。这是O(n)操作，并保持向量中元素的顺序 | 如果`i`超出范围          |
 | `vector::swap_remove<T>(v: &mut vector<T>, i: u64): T`     | 将向量`v`的第`i`个元素与最后一个元素交换，然后弹出该元素。这是O(1)操作，但不保持向量中元素的顺序 | 如果`i`超出范围          |
 
@@ -114,7 +114,7 @@ assert!(vector::pop_back(&mut v) == 5, 42);
 
 ## 销毁和复制`vector`
 
-`vector<T>`的某些行为取决于元素类型`T`的能力。例如,包含没有`drop`能力的元素的向量不能像上面示例中的`v`那样被隐式丢弃--它们必须使用`vector::destroy_empty`显式销毁。
+`vector<T>`的某些行为取决于元素类型`T`的能力。例如，包含没有`drop`能力元素的 vector 不能像上面示例中的`v`那样被隐式丢弃 -- 它们必须使用`vector::destroy_empty`显式销毁。
 
 注意，除非`vec`包含零个元素，否则`vector::destroy_empty`将在运行时中止:
 
@@ -124,7 +124,7 @@ fun destroy_any_vector<T>(vec: vector<T>) {
 }
 ```
 
-但对于丢弃包含具有`drop`能力的元素的向量不会发生错误:
+但对于丢弃包含具有`drop`能力元素的向量不会发生错误:
 
 ```move
 fun destroy_droppable_vector<T: drop>(vec: vector<T>) {
@@ -133,7 +133,7 @@ fun destroy_droppable_vector<T: drop>(vec: vector<T>) {
 }
 ```
 
-同样，除非元素类型具有`copy`能力，否则向量不能被复制。换句话说,当且仅当`T`具有`copy`能力时，`vector<T>`才具有`copy`能力。请注意，如果需要，它将被隐式复制:
+同样，除非元素类型具有`copy`能力，否则 vector 不能被复制。换句话说，当且仅当`T`具有`copy`能力时，`vector<T>`才具有`copy`能力。请注意，如果需要，它将被隐式复制:
 
 ```move
 let x = vector[10];
@@ -142,7 +142,7 @@ let z = x;
 (y, z)
 ```
 
-请记住,复制大向量可能很昂贵。如果这是一个问题，注释`intended`用法可以防止意外复制。例如，
+请记住，复制大 vector 可能很昂贵。如果这是一个问题，注释`intended`用法可以防止意外复制。例如，
 
 ```move
 let x = vector[10];
