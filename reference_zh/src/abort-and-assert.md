@@ -1,4 +1,4 @@
-# Abort and Assert
+# 错误处理
 
 [`return`](./functions.md) 和 `abort` 是两种控制流结构，用于结束执行，分别适用于当前函数和整个交易。
 

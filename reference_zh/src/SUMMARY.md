@@ -21,7 +21,7 @@
 - [流程控制](control-flow.md)
   - [条件表达式](control-flow/conditionals.md)
   - [循环](control-flow/loops.md)
-  - [流程控制标记](control-flow/labeled-control-flow.md)
+  - [带标签的控制流](control-flow/labeled-control-flow.md)
   - [模式匹配](control-flow/pattern-matching.md)
 - [方法](functions.md)
   - [宏函数](functions/macros.md)
