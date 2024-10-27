@@ -30,7 +30,7 @@
 - [常量](constants.md)
 - [泛型](generics.md)
 - [能力](abilities.md)
-- [别名](uses.md)
+- [use 和 别名](uses.md)
 
 # 进阶概念
 
