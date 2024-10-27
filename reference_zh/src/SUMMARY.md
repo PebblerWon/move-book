@@ -16,7 +16,7 @@
   - [引用](primitive-types/references.md)
   - [元组和单元](primitive-types/tuples.md)
 - [局部变量和作用域](variables.md)
-- [等式](equality.md)
+- [相等性](equality.md)
 - [错误处理](abort-and-assert.md)
 - [流程控制](control-flow.md)
   - [条件表达式](control-flow/conditionals.md)
