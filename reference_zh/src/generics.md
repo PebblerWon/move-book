@@ -279,70 +279,15 @@ public struct HasCopy has copy {}
 
 现在考虑类型 `S<HasCopy, NoCopy>`。由于 `S` 定义时有 `copy` 能力，并且所有非 phantom 参数都有 `copy` 能力，因此 `S<HasCopy, NoCopy>` 也有 `copy` 能力。
 
-### 拥有 Ability 约束的 Phantom 类型参数
+#### 带能力约束的 phantom 类型参数
 
-在之前的例子中，尽管`struct Coin`要求有`store`能力，但`Coin<A>`和`Coin<B>`都不会有`store`能力。这是因为[条件能力和泛型类型](./abilities.md#conditional-abilities-and-generic-types)的规则，以及`A`和`B`没有`store`能力，尽管它们在`struct Coin`的主体中甚至没有被使用。这可能会导致一些不愉快的后果。例如，我们无法将`Coin<A>`放入存储中的钱包。
-
-一个可能的解决方案是为`A`和`B`添加虚假的能力注释(例如，`public struct Currency1 has store {}`)。但是，这可能会导致错误或安全漏洞，因为它用不必要的能力声明削弱了类型。例如，我们永远不会期望存储中的值有一个`A`类型的字段，但有了虚假的`store`能力，这就成为可能。此外，这些虚假注释会具有传染性，要求许多使用未使用类型参数的泛型函数也包含必要的约束。
-
-幻象类型参数解决了这个问题。未使用的类型参数可以被标记为幻象类型参数，它们不参与结构体的能力推导。这样，幻象类型参数的参数在推导泛型类型的能力时不会被考虑，从而避免了虚假能力注释的需要。为了使这个放宽的规则是安全的，Move 的类型系统保证了声明为`phantom`的参数要么在结构体定义中完全不使用，要么只作为参数用于同样声明为`phantom`的类型参数。
-
-#### 声明
-
-在结构体定义中，可以通过在类型参数声明前添加`phantom`关键字来将其声明为幻象类型参数。
-
-```move
-public struct Coin<phantom Currency> has store {
-    value: u64
-}
-```
-
-如果一个类型参数被声明为幻象，我们称之为幻象类型参数。在定义结构体时，Move 的类型检查器确保每个幻象型参数要么在结构体定义内部不使用，要么只作为幻象类型参数的参数使用。
-
-```move
-public struct S1<phantom T1, T2> { f: u64 }
-//               ^^^^^^^ 有效,T1 在结构体定义中没有出现
-
-public struct S2<phantom T1, T2> { f: S1<T1, T2> }
-//               ^^^^^^^ 有效,T1 出现在幻象位置
-```
-
-以下代码显示了违反规则的例子:
-
-```move
-public struct S1<phantom T> { f: T }
-//               ^^^^^^^ 错误!  ^ 不是幻象位置
-
-public struct S2<T> { f: T }
-public struct S3<phantom T> { f: S2<T> }
-//               ^^^^^^^ 错误!     ^ 不是幻象位置
-```
-
-更正式地说，如果一个类型被用作幻象类型参数的参数，我们说该类型出现在幻象位置。有了这个定义，正确使用幻象参数的规则可以被指定为:幻象类型参数只能出现在幻象位置。
-
-请注意，指定`phantom`不是必需的，但如果一个类型参数可以是`phantom`但未被标记为`phantom`，编译器会发出警告。
-
-#### 实例化
-
-在实例化结构体时，幻象参数的参数在推导结构体能力时被排除。例如，考虑以下代码:
-
-```move
-public struct S<T1, phantom T2> has copy { f: T1 }
-public struct NoCopy {}
-public struct HasCopy has copy {}
-```
-
-现在考虑类型`S<HasCopy, NoCopy>`。由于`S`定义时有`copy`能力，并且所有非幻象参数都有`copy`能力，因此`S<HasCopy, NoCopy>`也有`copy`能力。
-
-#### 带能力约束的幻象类型参数
-
-能力约束和幻象类型参数是正交的特性，意味着幻象参数可以声明为带有能力约束。
+能力约束和 phantom 类型参数是正交的特性，意味着 phantom 参数可以声明为带有能力约束。
 
 ```move
 public struct S<phantom T: copy> {}
 ```
 
-在实例化带有能力约束的幻象类型参数时，类型参数必须满足该约束，尽管该参数是幻象的。通常的限制适用，`T`只能用具有`copy`能力的参数实例化。
+在实例化带有能力约束的 phantom 类型参数时，类型参数必须满足该约束，尽管该参数是 phantom 的。通常的限制适用，`T`只能用具有`copy`能力的参数实例化。
 
 ## 约束
 
