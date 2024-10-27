@@ -44,4 +44,4 @@
 
 # 参考
 
-- [代码约定](coding-conventions.md)
+- [编码规范](coding-conventions.md)
