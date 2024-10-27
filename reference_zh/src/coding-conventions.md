@@ -491,4 +491,6 @@ module conventions::social_network {
 ```
 
 
-请查看 [Sui 的 Move 编码规范](https://docs.sui.io/concepts/sui-move-concepts/conventions)
+## 参考资料
+
+- [Sui 的 Move 编码规范](https://docs.sui.io/concepts/sui-move-concepts/conventions)
