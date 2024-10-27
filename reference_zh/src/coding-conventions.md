@@ -119,7 +119,7 @@ module conventions::collection {
 }
 ```
 
-## 新函数
+## new 函数
 
 将创建对象的函数命名为 `new`。
 
