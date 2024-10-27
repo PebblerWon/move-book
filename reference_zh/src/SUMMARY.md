@@ -35,7 +35,7 @@
 # 进阶概念
 
 - [方法语法](method-syntax.md)
-- [方法索引](index-syntax.md)
+- [index 语法](index-syntax.md)
 
 # 工具
 
