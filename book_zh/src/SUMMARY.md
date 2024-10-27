@@ -129,7 +129,7 @@
 - [Creating an NFT Collection]()
 - [Tests with Objects]()<!-- (./guides/testing.md) -->
 <!-- - [Debugging]()(./guides/debugging.md) -->
-- [代码规范](./guides/coding-conventions.md)
+- [编码规范](./guides/coding-conventions.md)
 
 # Appendix
 
