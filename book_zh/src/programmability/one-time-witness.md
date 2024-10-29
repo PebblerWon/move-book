@@ -21,7 +21,7 @@ OTW 不能手动构造，任何试图这样做的代码都会导致编译错误�
 
 ## 强制使用 OTW
 
-要检查一个类型是否为 OTW，可以使用[Sui 框架](./sui-framework.md)的 `sui::types` 模块提供的特殊函数 `is_one_time_witness`。
+要检查一个类型是否为 OTW，可以使用[Sui Framework](./sui-framework.md)的 `sui::types` 模块提供的特殊函数 `is_one_time_witness`。
 
 ```move
 {{#include ../../../packages/samples/sources/programmability/one-time-witness.move:usage}}

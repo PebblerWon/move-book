@@ -56,7 +56,7 @@
 - [Move 基础](./move-basics/README.md)
   - [模块](./move-basics/module.md)
   - [注释](./move-basics/comments.md)
-  - [基本类型](./move-basics/primitive-types.md)
+  - [原始类型](./move-basics/primitive-types.md)
   - [地址类型](./move-basics/address.md)
   - [表达式](./move-basics/expression.md)
   - [结构体](./move-basics/struct.md)
@@ -97,16 +97,16 @@
   - [事务上下文](./programmability/transaction-context.md)
   - [模块初始化](./programmability/module-initializer.md)
   - [设计模式: 能力](./programmability/capability.md)
-  - [周期和时间](./programmability/epoch-and-time.md)
+  - [纪元和时间](./programmability/epoch-and-time.md)
   - [集合](./programmability/collections.md)
   - [动态字段](./programmability/dynamic-fields.md)
   - [动态对象字段](./programmability/dynamic-object-fields.md)
   - [动态集合](./programmability/dynamic-collections.md)
   - [设计模式: 见证者](./programmability/witness-pattern.md)
   - [一次性见证者](./programmability/one-time-witness.md)
-  - [Publisher Authority](./programmability/publisher.md)
-  - [展示](./programmability/display.md) <!-- End Block: from Witness to Display -->
-  - [时间](./programmability/events.md)
+  - [发布者权限](./programmability/publisher.md)
+  - [Display 对象](./programmability/display.md) <!-- End Block: from Witness to Display -->
+  - [事件](./programmability/events.md)
   - [Balance & Coin]() <!-- ./programmability/balance-and-coin.md) -->
   - [Sui Framework](./programmability/sui-framework.md)
   - [设计模式: 烫手山芋](./programmability/hot-potato-pattern.md) <!-- ./programmability/hot-potato.md) -->
@@ -129,7 +129,7 @@
 - [Creating an NFT Collection]()
 - [Tests with Objects]()<!-- (./guides/testing.md) -->
 <!-- - [Debugging]()(./guides/debugging.md) -->
-- [代码规范](./guides/coding-conventions.md)
+- [编码规范](./guides/coding-conventions.md)
 
 # Appendix
 

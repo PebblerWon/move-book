@@ -30,7 +30,7 @@
 `drop`能力允许具有此能力的类型的值被丢弃。丢弃是指该值未被转移且在Move程序执行时被有效地销毁。因此，这种能力限制了在多个位置忽略值的能力，包括：
 
 - 不使用局部变量或参数中的值
-- 不使用[序列中的值通过`;`](./variables.md#expression-blocks)
+- 不通过[ ; 使用序列中的值](./variables.md#expression-blocks)
 - 在[赋值](./variables.md#assignments)时覆盖变量中的值
 - 在[引用写操作时](./primitive-types/references.md#reading-and-writing-through-references)覆盖值。
 
@@ -132,7 +132,7 @@ public struct MyDataEnum has store {
 {{#include ../../packages/reference/sources/abilities.move:conditional_abilities}}
 ```
 
-如果`Cup`能够容纳任何类型，而不考虑其能力，那将非常有帮助。类型系统可以_看到_类型参数，因此如果它_看到_一个类型参数会违反该能力的保证，它应该能够从`Cup`中删除该能力。
+如果`Cup`能够容纳任何类型，而不考虑其能力，那将非常有帮助。类型系统可以 _看到_ 类型参数，因此如果它 _看到_ 一个类型参数会违反该能力的保证，它应该能够从`Cup`中删除该能力。
 
 这种行为一开始可能听起来有点混乱，但如果我们考虑集合类型，它可能会更容易理解。我们可以将内建类型`vector`看作具有以下类型声明：
 
@@ -145,9 +145,7 @@ vector<T> has copy, drop, store;
 为了具有这种额外的表达能力，类型可能没有它声明的所有能力，具体取决于该类型的实例化；相反，一个类型将具有的能力取决于其声明**和**其类型参数。对于任何类型，类型参数被悲观地假设用于结构体内部，因此只有当类型参数满足上述字段的要求时，才授予能力。以上面的`Cup`为例：
 
 - 只有当`T`具有`copy`时，`Cup`才具有`copy`能力。
-- 只有当`T
-
-`具有`drop`时，它才具有`drop`能力。
+- 只有当`T`具有`drop`时，它才具有`drop`能力。
 - 只有当`T`具有`store`时，它才具有`store`能力。
 - 只有当`T`具有`store`时，它才具有`key`能力。
 

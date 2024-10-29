@@ -1,6 +1,6 @@
 # 动态集合
 
-[Sui 框架](./sui-framework.md)提供了多种集合类型，基于[动态字段](./dynamic-fields.md)和[动态对象字段](./dynamic-object-fields.md)的概念构建。这些集合类型旨在以更安全和更易理解的方式存储和管理动态字段和对象。
+[Sui Framework](./sui-framework.md)提供了多种集合类型，基于[动态字段](./dynamic-fields.md)和[动态对象字段](./dynamic-object-fields.md)的概念构建。这些集合类型旨在以更安全和更易理解的方式存储和管理动态字段和对象。
 
 对于每种集合类型，我们将指定它们使用的基本类型和它们提供的特定功能。
 
@@ -16,7 +16,7 @@
 - `borrow_mut` - 从集合中借用可变引用字段
 - `contains` - 检查集合中是否存在字段
 - `length` - 返回集合中字段的数量
-- `is_empty` - 检查`length`是否为0
+- `is_empty` - 检查`length`是否为 0
 
 所有集合类型都支持对`borrow`和`borrow_mut`方法使用索引语法。如果在示例中看到方括号，它们将被转换为对`borrow`和`borrow_mut`的调用。
 

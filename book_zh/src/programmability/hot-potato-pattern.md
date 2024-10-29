@@ -1,4 +1,4 @@
-# 模式：烫手山芋
+# 设计模式：烫手山芋
 
 在能力系统中，没有任何能力的结构体被称为 _烫手山芋_ 。
 它不能被存储（既不能作为[对象](./../storage/key-ability.md)，
@@ -90,9 +90,9 @@ transfer::public_transfer(proceeds, ctx.sender());
 
 最重要的组合模式是[请求模式](./request-pattern.md)，我们将在下一节中介绍。
 
-### 在 Sui 框架中的应用
+### 在 Sui Framework中的应用
 
-该模式在 Sui 框架中以各种形式使用。以下是一些示例：
+该模式在 Sui Framework中以各种形式使用。以下是一些示例：
 
 - `sui::borrow` - 使用“烫手山芋”模式确保借出的值被正确归还到原始容器。
 - `sui::transfer_policy` - 定义了 `TransferRequest`，一种只能在满足所有条件时才能被消耗的“烫手山芋”。

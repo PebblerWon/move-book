@@ -1,6 +1,6 @@
 # 标准库
 
-Move 标准库提供了用于本机类型和操作的功能集合。它是一组标准的模块集，不涉及存储操作，而是提供基本工具来处理和操作数据。它是[Sui 框架](../programmability/sui-framework.md)的唯一依赖，并与之一起导入使用。
+Move 标准库提供了用于本机类型和操作的功能集合。它是一组标准的模块集，不涉及存储操作，而是提供基本工具来处理和操作数据。它是[Sui Framework](../programmability/sui-framework.md)的唯一依赖，并与之一起导入使用。
 
 ## 最常见的模块
 
@@ -41,7 +41,7 @@ std = "0x1"
 - std::option
 - std::option::Option
 
-## 不依赖于 Sui 框架导入 std
+## 不依赖于 Sui Framework导入 std
 
 Move 标准库可以直接导入到包中。然而，仅导入 `std` 是不足以构建有意义的应用程序，因为它不提供任何存储能力，也不能与链上状态进行交互。
 
